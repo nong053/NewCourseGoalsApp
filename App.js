@@ -1,46 +1,56 @@
 import { useState } from 'react';
-import { StyleSheet, Text, View, TextInput,Button } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 
 
 export default function App() {
 
-  const [enteredGoldText, setEnteredGoalText] = useState(''); 
-  const [courseGoals,setCourseGoals] = useState('');
+  const [enteredGoldText, setEnteredGoalText] = useState('');
+  const [courseGoals, setCourseGoals] = useState([]);
 
 
-  function goalInputHandler(enteredText){
-    
+  function goalInputHandler(enteredText) {
+    //console.log(enteredText);
     setEnteredGoalText(enteredText);
-    
+
 
   }
-  function addGoalHandler(){
+  function addGoalHandler() {
     
-    setCourseGoals((currentCourseGoals)=>[
+    //alert(enteredGoldText);
+    //console.log(enteredGoldText);
+    setCourseGoals((currentCourseGoals) => [
       ...currentCourseGoals,
-      enteredGoldText,
-
+      enteredGoldText
     ]);
+
+    console.log(enteredGoldText);
+
   }
- 
+
 
   return (
     <View style={styles.appContainer}>
       <View style={styles.inputContainer}>
-        
-        <TextInput style={styles.textInput} 
-        placeholder="Your course goal!!" 
-        onChange={goalInputHandler}
+
+        <TextInput style={styles.textInput}
+          placeholder="Your course goal!!"
+          onChangeText={goalInputHandler}
         />
-        <Button 
-        title="Add Goal" 
-        onPress={addGoalHandler}
+        <Button
+          title="Add Goal"
+          onPress={addGoalHandler}
         />
       </View>
       <View>
-        <Text>Text</Text>
+     
+        {courseGoals.map((goal) => (
+          <View key={goal} style={styles.goalItem}>
+            <Text style={styles.goalText}>
+              {goal}
+            </Text>
+          </View>
+        ))}
         
-        {/* {courseGoals.map((goal)=><Text key={goal}>{goal}</Text>)} */}
       </View>
     </View>
   );
@@ -63,9 +73,9 @@ const styles = StyleSheet.create({
 
   },
   textInput: {
-    
     borderWidth: 1,
     borderColor: '#cccccc',
     width: '70%'
   }
 });
+
